@@ -42,7 +42,19 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public void payVehicle(Vehicle vehicle, Passenger passenger) {
 		// TODO Auto-generated method stub
-		
+		if(vehicle.getTransportationCost() > passenger.getCurrentMoney()) {
+			// Not enough Money
+		}
+		else {
+			// pay transportation cost
+			Double passengerMoney = passenger.getCurrentMoney() - vehicle.getTransportationCost();
+			Double vehicleEarnings = vehicle.getEarnings() + vehicle.getTransportationCost();
+			// check if vehicle earnings can perform change
+			passenger.setCurrentMoney(passengerMoney);
+			vehicle.setEarnings(vehicleEarnings);
+			
+			vehicleSave(vehicle, passenger, CurrentState.WAITING_TO_PAY);
+		}
 	}
 
 	@Override
