@@ -6,13 +6,15 @@ import com.fsm.model.Vehicle;
 
 public interface VehicleService {
 	
+	public FSMState waitVehicle(Passenger passenger);
+	
+	public FSMState waitVehiclePayment(Passenger passenger, Vehicle vehicle);
+	
 	public FSMState boardVehicle(Passenger passenger);
 	
 	public FSMState boardVehicle(Vehicle vehicle, Passenger passenger);
 	
-	public void payVehicle(Vehicle vehicle, Passenger passenger);
+	public FSMState payVehicle(Vehicle vehicle, Passenger passenger);
 	
-	public void changeResolution();
-	
-	public void stopVehicle(Vehicle vehicle);
+	public FSMState stopVehicle(Vehicle vehicle, Passenger passenger);
 }
