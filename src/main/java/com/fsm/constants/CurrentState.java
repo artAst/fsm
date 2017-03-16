@@ -16,32 +16,32 @@ public enum CurrentState {
     PASSENGER_BOARDED,
 
     /**
-     * The Email on read state.
+     * The Vehicle waiting to pay state.
      */
     WAITING_TO_PAY,
     
     /**
-     * The Email on read state.
+     * The Passenger waiting for change state.
      */
     WAITING_FOR_CHANGE,
     
     /**
-     * The Email on read state.
+     * The change resolution state.
      */
     CHANGE_RESOLUTION,
     
     /**
-     * The Email on read state.
+     * The Passenger riding vehicle state.
      */
     RIDING_VEHICLE,
     
     /**
-     * The Email on read state.
+     * The Vehicle waiting to stop state.
      */
     WAITING_TO_STOP,
 
     /**
-     * The Email on archived state.
+     * The Passenger got off state.
      */
     GOT_OFF
 }
