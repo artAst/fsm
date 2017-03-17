@@ -29,10 +29,10 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public FSMState stopVehicle(Vehicle vehicle, Passenger passenger) {
 		// state waiting to stop vehicle
-		logger.debug("Current State changed to... WAITING TO STOP");
+		logger.info("Current State changed to... WAITING TO STOP");
 		fsmStateService.saveFSMState(vehicle, passenger, CurrentState.WAITING_TO_STOP);
 		// vehicle stop
-		logger.debug("Current State changed to... GOT OFF. Passenger unloaded.");
+		logger.info("Current State changed to... GOT OFF. Passenger unloaded.");
 		return fsmStateService.saveFSMState(vehicle, passenger, CurrentState.GOT_OFF);
 	}
 

@@ -32,10 +32,10 @@ public class FSMRestApiController {
 	
 	@RequestMapping( value = "/passenger", method = RequestMethod.GET )
 	public ResponseEntity<List<Passenger>> listAllPassengers() {
-		logger.debug("listAllPassengers: service get all passengers");
+		logger.info("listAllPassengers: service get all passengers");
 		List<Passenger> passengers = passengerService.getAllPassengers();
 		if(passengers.isEmpty()) {
-			logger.debug("passenger list empty...");
+			logger.info("passenger list empty...");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Passenger>>(passengers, HttpStatus.OK);
@@ -43,10 +43,10 @@ public class FSMRestApiController {
 	
 	@RequestMapping( value = "/vehicle", method = RequestMethod.GET )
 	public ResponseEntity<List<Vehicle>> listAllVehicle() {
-		logger.debug("listAllVehicle: service get all vehicle");
+		logger.info("listAllVehicle: service get all vehicle");
 		List<Vehicle> vehicles = vehicleService.getAll();
 		if(vehicles.isEmpty()) {
-			logger.debug("vehicle list empty...");
+			logger.info("vehicle list empty...");
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Vehicle>>(vehicles, HttpStatus.OK);
@@ -54,10 +54,10 @@ public class FSMRestApiController {
 	
 	@RequestMapping( value = "/passenger/{id}", method = RequestMethod.GET )
 	public ResponseEntity<?> getPassenger(@PathVariable long id) {
-		logger.debug("getPassenger: fetching passenger with id {}", id);
+		logger.info("getPassenger: fetching passenger with id {}", id);
 		Passenger passenger = passengerService.getPassengerById(id);
 		if(passenger == null) {
-			logger.debug("passenger with id {} not found...", id);
+			logger.info("passenger with id {} not found...", id);
 			return new ResponseEntity<FSMErrorType>(new FSMErrorType("passenger with id "+ id
 					+" not found..."), HttpStatus.NOT_FOUND);
 		}
@@ -66,10 +66,10 @@ public class FSMRestApiController {
 	
 	@RequestMapping( value = "/vehicle/{id}", method = RequestMethod.GET )
 	public ResponseEntity<?> getVehicle(@PathVariable long id) {
-		logger.debug("getVehicle: fetching vehicle with id {}", id);
+		logger.info("getVehicle: fetching vehicle with id {}", id);
 		Vehicle v = vehicleService.getVehicle(id);
 		if(v == null) {
-			logger.debug("vehicle with id {} not found...", id);
+			logger.info("vehicle with id {} not found...", id);
 			return new ResponseEntity<FSMErrorType>(new FSMErrorType("vehicle with id "+ id
 					+" not found..."), HttpStatus.NOT_FOUND);
 		}

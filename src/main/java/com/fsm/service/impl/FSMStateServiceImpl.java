@@ -29,7 +29,7 @@ public class FSMStateServiceImpl implements FSMStateService {
 		status.setVehicle(v);
 		status.setCurrentState(s);
 		fsmStateDao.save(status);
-		logger.debug("Current State saved...");
+		logger.info("Current State saved...");
 		return status;
 	}
 

@@ -36,7 +36,7 @@ public class PassengerServiceImpl implements PassengerService {
 	 */
 	@Override
 	public FSMState waitVehicle(Passenger passenger) {
-		logger.debug("Current State changed to... WAITING VEHICLE");
+		logger.info("Current State changed to... WAITING VEHICLE");
 		List<Vehicle> vehicles = vehicleService.getAll();
 		if(vehicles == null || vehicles.isEmpty()) {
 			return fsmStateService.saveFSMState(null, passenger, CurrentState.WAITING_VEHICLE);
@@ -49,16 +49,16 @@ public class PassengerServiceImpl implements PassengerService {
 
 	@Override
 	public FSMState waitVehiclePayment(Passenger passenger, Vehicle vehicle) {
-		logger.debug("Current State changed to... WAITING TO PAY");
+		logger.info("Current State changed to... WAITING TO PAY");
 		return fsmStateService.saveFSMState(vehicle, passenger, CurrentState.WAITING_TO_PAY);
 	}
 	
 	@Override
 	public FSMState boardVehicle(Passenger passenger) {
-		logger.debug("Passenger boarding to vehicle without vehicle param...");
+		logger.info("Passenger boarding to vehicle without vehicle param...");
 		Vehicle v = vehicleService.getFirstVehicleEntry();
 		if(v != null) {
-			logger.debug("Current State changed to... PASSENGER BOARDED");
+			logger.info("Current State changed to... PASSENGER BOARDED");
 			return fsmStateService.saveFSMState(v, passenger, CurrentState.PASSENGER_BOARDED);
 		}
 		return null;
@@ -66,10 +66,10 @@ public class PassengerServiceImpl implements PassengerService {
 	
 	@Override
 	public FSMState boardVehicle(Vehicle vehicle, Passenger passenger) {
-		logger.debug("Passenger boarding to vehicle with vehicle param...");
+		logger.info("Passenger boarding to vehicle with vehicle param...");
 		Vehicle v = vehicleService.getVehicle(vehicle.getId());
 		if(v != null) {
-			logger.debug("Current State changed to... PASSENGER BOARDED");
+			logger.info("Current State changed to... PASSENGER BOARDED");
 			return fsmStateService.saveFSMState(v, passenger, CurrentState.PASSENGER_BOARDED);
 		}
 		return null;
@@ -78,16 +78,16 @@ public class PassengerServiceImpl implements PassengerService {
 	@Override
 	public FSMState payVehicle(Vehicle vehicle, Passenger passenger) {
 		// set state to 'wating for change'
-		logger.debug("Current State changed to... WAITING FOR CHANGE");
+		logger.info("Current State changed to... WAITING FOR CHANGE");
 		fsmStateService.saveFSMState(vehicle, passenger, CurrentState.WAITING_FOR_CHANGE);
 		
 		if(vehicle.getTransportationCost() > passenger.getCurrentMoney()) {
 			// Not enough Money
 			// state waiting to stop vehicle
-			logger.debug("Passenger not enough money. Current State changed to... WAITING TO STOP");
+			logger.info("Passenger not enough money. Current State changed to... WAITING TO STOP");
 			fsmStateService.saveFSMState(vehicle, passenger, CurrentState.WAITING_TO_STOP);
 			// vehicle stop
-			logger.debug("Current State changed to... GOT OFF. Passenger unloaded.");
+			logger.info("Current State changed to... GOT OFF. Passenger unloaded.");
 			return fsmStateService.saveFSMState(vehicle, passenger, CurrentState.GOT_OFF);
 		}
 		else {
@@ -101,14 +101,14 @@ public class PassengerServiceImpl implements PassengerService {
 			vehicleService.update(vehicle);
 			
 			passengerDao.save(passenger);
-			logger.debug("Current State changed to... RIDING VEHICLE");
+			logger.info("Current State changed to... RIDING VEHICLE");
 			return fsmStateService.saveFSMState(vehicle, passenger, CurrentState.RIDING_VEHICLE);
 		}
 	}
 
 	@Override
 	public FSMState clickCoinOnRoof(Vehicle vehicle, Passenger passenger) {
-		logger.debug("Passenger clicked coin on roof... Stopping vehicle.");
+		logger.info("Passenger clicked coin on roof... Stopping vehicle.");
 		return vehicleService.stopVehicle(vehicle, passenger);
 	}
 
