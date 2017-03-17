@@ -71,6 +71,11 @@ public class VehicleServiceImplTest {
 	}
 	
 	@Test
+	public void clickedCoinOnRoofShouldReturnFSMState_gotOff() {
+		stopVehicleShouldReturnFSMState_gotOff();
+	}
+	
+	@Test
 	public void stopVehicleShouldReturnFSMState_gotOff() {
 		Passenger passenger = getPassenger();
 		FSMState status = passengerService.boardVehicle(passenger);

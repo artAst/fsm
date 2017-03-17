@@ -16,5 +16,5 @@ public interface PassengerService {
 	
 	public FSMState payVehicle(Vehicle vehicle, Passenger passenger);
 	
-	public void clickCoinOnRoof();
+	public FSMState clickCoinOnRoof(Vehicle vehicle, Passenger passenger);
 }

@@ -94,9 +94,9 @@ public class PassengerServiceImpl implements PassengerService {
 	}
 
 	@Override
-	public void clickCoinOnRoof() {
-		// TODO Auto-generated method stub
-		
+	public FSMState clickCoinOnRoof(Vehicle vehicle, Passenger passenger) {
+		logger.debug("Passenger clicked coin on roof... Stopping vehicle.");
+		return vehicleService.stopVehicle(vehicle, passenger);
 	}
 
 }
