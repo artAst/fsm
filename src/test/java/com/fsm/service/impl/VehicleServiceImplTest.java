@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fsm.constants.CurrentState;
 import com.fsm.dao.PassengerDao;
@@ -20,7 +20,7 @@ import com.fsm.service.PassengerService;
 import com.fsm.service.VehicleService;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @Transactional
 @SpringBootTest
 public class VehicleServiceImplTest {
