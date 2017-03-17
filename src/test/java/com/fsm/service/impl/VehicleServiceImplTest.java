@@ -16,6 +16,7 @@ import com.fsm.dao.PassengerDao;
 import com.fsm.model.FSMState;
 import com.fsm.model.Passenger;
 import com.fsm.model.Vehicle;
+import com.fsm.service.PassengerService;
 import com.fsm.service.VehicleService;
 
 
@@ -30,37 +31,53 @@ public class VehicleServiceImplTest {
 	@Autowired
 	private VehicleService vehicleService;
 	
+	@Autowired
+	private PassengerService passengerService;
+	
 	@Test
-	public void waitVehicleShouldReturnFSMState() {
+	public void waitVehicleShouldReturnFSMState_waitingVehicle() {
 		Passenger p = getPassenger();
-		FSMState status = vehicleService.waitVehicle(p);
+		FSMState status = passengerService.waitVehicle(p);
 		assertNotNull("Status null", status);
 		assertEquals(status.getCurrentState(), CurrentState.WAITING_VEHICLE);
 	}
 	
 	@Test
-	public void boardVehicleWithPassengerShouldReturnFSMState() {
+	public void boardVehicleWithPassengerShouldReturnFSMState_passengerBoarded() {
 		Passenger p = getPassenger();
-		FSMState status = vehicleService.boardVehicle(p);
+		FSMState status = passengerService.boardVehicle(p);
 		assertNotNull("Vehicle null", status.getVehicle());
+		assertEquals(status.getCurrentState(), CurrentState.PASSENGER_BOARDED);
 	}
 	
 	@Test
-	public void waitVehiclePaymentShouldReturnFSMState() {
+	public void waitVehiclePaymentShouldReturnFSMState_waitingToPay() {
 		Passenger p = getPassenger();
-		FSMState status = vehicleService.boardVehicle(p);
+		FSMState status = passengerService.boardVehicle(p);
 		assertNotNull("Vehicle null", status.getVehicle());
-		status = vehicleService.waitVehiclePayment(p, status.getVehicle());
+		status = passengerService.waitVehiclePayment(p, status.getVehicle());
 		assertNotNull("Status null", status);
 		assertEquals(status.getCurrentState(), CurrentState.WAITING_TO_PAY);
 	}
 	
-	public void payVehicleShouldReturnFSMState() {
+	@Test
+	public void payVehicleShouldReturnFSMState_ridingVehicle() {
 		Passenger passenger = getPassenger();
-		FSMState status = vehicleService.boardVehicle(passenger);
+		FSMState status = passengerService.boardVehicle(passenger);
 		assertNotNull("Vehicle null", status.getVehicle());
 		Vehicle vehicle = status.getVehicle();
-		status = vehicleService.payVehicle(vehicle, passenger);
+		status = passengerService.payVehicle(vehicle, passenger);
+		assertEquals(status.getCurrentState(), CurrentState.RIDING_VEHICLE);
+	}
+	
+	@Test
+	public void stopVehicleShouldReturnFSMState_gotOff() {
+		Passenger passenger = getPassenger();
+		FSMState status = passengerService.boardVehicle(passenger);
+		assertNotNull("Vehicle null", status.getVehicle());
+		Vehicle vehicle = status.getVehicle();
+		status = vehicleService.stopVehicle(vehicle, passenger);
+		assertEquals(status.getCurrentState(), CurrentState.GOT_OFF);
 	}
 	
 	private Passenger getPassenger() {
