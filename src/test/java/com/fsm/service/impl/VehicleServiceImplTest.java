@@ -35,47 +35,6 @@ public class VehicleServiceImplTest {
 	private PassengerService passengerService;
 	
 	@Test
-	public void waitVehicleShouldReturnFSMState_waitingVehicle() {
-		Passenger p = getPassenger();
-		FSMState status = passengerService.waitVehicle(p);
-		assertNotNull("Status null", status);
-		assertEquals(status.getCurrentState(), CurrentState.WAITING_VEHICLE);
-	}
-	
-	@Test
-	public void boardVehicleWithPassengerShouldReturnFSMState_passengerBoarded() {
-		Passenger p = getPassenger();
-		FSMState status = passengerService.boardVehicle(p);
-		assertNotNull("Vehicle null", status.getVehicle());
-		assertEquals(status.getCurrentState(), CurrentState.PASSENGER_BOARDED);
-	}
-	
-	@Test
-	public void waitVehiclePaymentShouldReturnFSMState_waitingToPay() {
-		Passenger p = getPassenger();
-		FSMState status = passengerService.boardVehicle(p);
-		assertNotNull("Vehicle null", status.getVehicle());
-		status = passengerService.waitVehiclePayment(p, status.getVehicle());
-		assertNotNull("Status null", status);
-		assertEquals(status.getCurrentState(), CurrentState.WAITING_TO_PAY);
-	}
-	
-	@Test
-	public void payVehicleShouldReturnFSMState_ridingVehicle() {
-		Passenger passenger = getPassenger();
-		FSMState status = passengerService.boardVehicle(passenger);
-		assertNotNull("Vehicle null", status.getVehicle());
-		Vehicle vehicle = status.getVehicle();
-		status = passengerService.payVehicle(vehicle, passenger);
-		assertEquals(status.getCurrentState(), CurrentState.RIDING_VEHICLE);
-	}
-	
-	@Test
-	public void clickedCoinOnRoofShouldReturnFSMState_gotOff() {
-		stopVehicleShouldReturnFSMState_gotOff();
-	}
-	
-	@Test
 	public void stopVehicleShouldReturnFSMState_gotOff() {
 		Passenger passenger = getPassenger();
 		FSMState status = passengerService.boardVehicle(passenger);

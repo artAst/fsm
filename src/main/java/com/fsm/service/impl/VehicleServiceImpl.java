@@ -1,5 +1,7 @@
 package com.fsm.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,11 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public Vehicle update(Vehicle vehicle) {
 		return vehicleDao.save(vehicle);
+	}
+
+	@Override
+	public List<Vehicle> getAll() {
+		return vehicleDao.findAll();
 	}
 
 }

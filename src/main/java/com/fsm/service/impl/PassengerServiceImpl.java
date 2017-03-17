@@ -1,5 +1,7 @@
 package com.fsm.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +29,22 @@ public class PassengerServiceImpl implements PassengerService {
 	
 	@Autowired
 	private VehicleService vehicleService;
-
+	
+	/*
+	 * Wait for a vehicle
+	 * If vehicle available, should return FSM State with vehicle
+	 */
 	@Override
 	public FSMState waitVehicle(Passenger passenger) {
 		logger.debug("Current State changed to... WAITING VEHICLE");
-		return fsmStateService.saveFSMState(null, passenger, CurrentState.WAITING_VEHICLE);
+		List<Vehicle> vehicles = vehicleService.getAll();
+		if(vehicles == null || vehicles.isEmpty()) {
+			return fsmStateService.saveFSMState(null, passenger, CurrentState.WAITING_VEHICLE);
+		}
+		else {
+			Vehicle v = vehicleService.getFirstVehicleEntry();
+			return fsmStateService.saveFSMState(v, passenger, CurrentState.WAITING_VEHICLE);
+		}
 	}
 
 	@Override
@@ -97,6 +110,16 @@ public class PassengerServiceImpl implements PassengerService {
 	public FSMState clickCoinOnRoof(Vehicle vehicle, Passenger passenger) {
 		logger.debug("Passenger clicked coin on roof... Stopping vehicle.");
 		return vehicleService.stopVehicle(vehicle, passenger);
+	}
+
+	@Override
+	public List<Passenger> getAllPassengers() {
+		return passengerDao.findAll();
+	}
+
+	@Override
+	public Passenger getPassengerById(Long id) {
+		return passengerDao.findOne(id);
 	}
 
 }

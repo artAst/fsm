@@ -1,5 +1,7 @@
 package com.fsm.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,16 @@ public class FSMStateServiceImpl implements FSMStateService {
 		fsmStateDao.save(status);
 		logger.debug("Current State saved...");
 		return status;
+	}
+
+	@Override
+	public List<FSMState> getAll() {
+		return fsmStateDao.findAll();
+	}
+
+	@Override
+	public FSMState getFSMStateById(Long id) {
+		return fsmStateDao.findOne(id);
 	}
 
 }

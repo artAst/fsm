@@ -1,5 +1,7 @@
 package com.fsm.service;
 
+import java.util.List;
+
 import com.fsm.model.FSMState;
 import com.fsm.model.Passenger;
 import com.fsm.model.Vehicle;
@@ -17,4 +19,9 @@ public interface PassengerService {
 	public FSMState payVehicle(Vehicle vehicle, Passenger passenger);
 	
 	public FSMState clickCoinOnRoof(Vehicle vehicle, Passenger passenger);
+	
+	public List<Passenger> getAllPassengers();
+	
+	public Passenger getPassengerById(Long id);
+	
 }
