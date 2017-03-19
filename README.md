@@ -13,6 +13,35 @@ Here are the following states included:
 * Waiting to Stop
 * Got Off
 
+Entities
+------
+The Application consist of 3 entities
+located in *com.fsm.model*:
+
+* FSMState
+* Passenger
+* Vehicle
+
+Testing the app
+------
+Maven is used to run the unit tests in the app. 
+Or you can run it in a [conventional way using this method](http://stackoverflow.com/questions/2235276/how-to-run-junit-test-cases-from-the-command-line)
+
+These are the test items for the app
+within the test source package *com.fsm.service.impl* and *com.fsm.api*:
+
+* PassengerServiceImplTest
+* VehicleServiceImplTest
+* FSMRestApiControllerTest
+
+In command line:
 ```
-https://doc.nuxeo.com/corg/how-to-debug-a-test-run-with-maven/
+mvn test
 ```
+To run all of the test items.
+
+And
+```
+mvn -Dtest=PassengerServiceImplTest test
+```
+To run a single test item.
